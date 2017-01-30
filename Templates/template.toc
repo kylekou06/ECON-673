@@ -1,0 +1,5 @@
+\contentsline {section}{\numberline {1}Question a}{2}
+\contentsline {section}{\numberline {2}Without the codes}{3}
+\contentsline {section}{\numberline {3}Writing functions without seeing them}{5}
+\contentsline {section}{\numberline {A}Codes}{6}
+\contentsline {section}{\numberline {B}Functions}{6}

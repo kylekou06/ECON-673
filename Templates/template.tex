@@ -1,0 +1,317 @@
+\documentclass[12pt,letterpaper]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+% The following packages are not necessairly essential for you
+% You can remove some or add more in order to meet your needs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsthm}
+\usepackage[hmargin=3cm,vmargin=3.5cm]{geometry}
+\usepackage[utf8x]{inputenc}
+\usepackage[active]{srcltx}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{dcolumn}
+\usepackage{graphicx}
+\usepackage{multirow}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% These are some definition of commands that I like
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\R{ \mathbb{R} }
+\newcommand\N{ \mathbb{N} }
+\newcommand\C{ \mathbb{C} }
+\newcommand\Q{\mathbb{Q}}
+\newcommand{\citep}{\citeasnoun} % just to make it short
+\newcommand\T{{\cal T}}
+\newcommand\Hi{{\cal H}}
+\newcommand\La{{\cal L}}
+\newcommand\plim{plim}
+\renewcommand{\epsilon}{\varepsilon}
+\newtheorem{theorem}{Theorem}
+\newtheorem{col}{Corollary}
+\newtheorem{lem}{Lemma}
+\newtheorem{ass}{Assumption}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% You can change the title and the name of the author
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\author{Han Kou \footnote{Department of Economics, University of Waterloo, Ontario, Canada (h3kou@uwaterloo.ca)} }
+\title{\textbf ECON 673 Assignment 1}
+\date{\today}
+
+% Everything starts here. You can delete everything between begin{document} 
+% and end{document} and start writting your own stuff. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\maketitle
+
+
+\newpage
+
+
+\section{Question 1 Matrix Manipulation}
+\subsection{Question (A)}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{makeTeam} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{data}\hlstd{,} \hlkwc{team}\hlstd{)}
+  \hlstd{\{}
+  \hlstd{team} \hlkwb{<-} \hlkwd{match.arg}\hlstd{(team,} \hlkwd{unique}\hlstd{(data[,}\hlstr{"Home"}\hlstd{]))}
+  \hlstd{which} \hlkwb{<-} \hlstd{data[,}\hlstr{"Home"}\hlstd{]} \hlopt{==} \hlstd{team} \hlopt{|} \hlstd{data[,}\hlstr{"Away"}\hlstd{]} \hlopt{==} \hlstd{team}
+  \hlstd{obj} \hlkwb{<-} \hlstd{data[which,]}
+  \hlstd{chk} \hlkwb{<-} \hlstd{obj[,}\hlstr{"Period"}\hlstd{]} \hlopt{%in%} \hlkwd{c}\hlstd{(}\hlnum{1}\hlopt{:}\hlnum{4}\hlstd{,}\hlstr{"OT"}\hlstd{,}\hlstr{"SO"}\hlstd{)}
+  \hlstd{obj} \hlkwb{<-} \hlstd{obj[chk,]}
+  \hlstd{obj[obj[,}\hlstr{"Period"}\hlstd{]}\hlopt{==}\hlstr{"4"}\hlstd{,}\hlstr{"Period"}\hlstd{]} \hlkwb{<-} \hlstr{"OT"}
+  \hlkwd{class}\hlstd{(obj)} \hlkwb{<-} \hlstr{"team"}
+  \hlkwd{attr}\hlstd{(obj,} \hlstr{"team"}\hlstd{)} \hlkwb{<-} \hlstd{team}
+  \hlstd{obj}
+\hlstd{\}}
+
+\hlstd{Boston} \hlkwb{<-} \hlkwd{makeTeam}\hlstd{(res,} \hlstr{"BOSTON BRUINS"}\hlstd{)}
+
+
+\hlstd{print.team} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{teamname}\hlstd{,} \hlkwc{print}\hlstd{=}\hlnum{TRUE}\hlstd{)\{}
+  \hlstd{games.played} \hlkwb{<-} \hlkwd{length}\hlstd{(}\hlkwd{unique}\hlstd{(teamname[,}\hlnum{1}\hlstd{]))}
+  \hlstd{years.played} \hlkwb{<-} \hlkwd{length}\hlstd{(}\hlkwd{as.numeric}\hlstd{(}\hlkwd{unique}\hlstd{(}\hlkwd{strtrim}\hlstd{(teamname[,}\hlnum{1}\hlstd{],}\hlnum{4}\hlstd{))))}
+  \hlstd{game.year} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(}\hlkwd{unique}\hlstd{(}\hlkwd{strtrim}\hlstd{(teamname[,}\hlnum{1}\hlstd{],}\hlnum{4}\hlstd{)))}\hlopt{-}\hlnum{1}
+  \hlstd{team_name} \hlkwb{<-} \hlkwd{attr}\hlstd{(teamname,} \hlstr{"team"}\hlstd{)}
+  \hlkwa{if} \hlstd{(print)}
+    \hlkwd{cat}\hlstd{(}\hlstr{"   Goal Data for: "}\hlstd{, team_name,} \hlstr{"\textbackslash{}n"}\hlstd{,}
+        \hlstr{"****************************************"}\hlstd{,} \hlstr{"\textbackslash{}n"}\hlstd{,}
+        \hlstr{"\textbackslash{}n"}\hlstd{,}
+        \hlstr{" Games Played: "}\hlstd{, games.played,} \hlstr{"\textbackslash{}n"}\hlstd{,}
+        \hlstr{" Seasons: "}\hlstd{, game.year[}\hlnum{1}\hlstd{],} \hlstr{"-"}\hlstd{, game.year[}\hlnum{2}\hlstd{],} \hlstr{"to"}\hlstd{,}
+        \hlstd{game.year[years.played],} \hlstr{"-"}\hlstd{, game.year[years.played]}\hlopt{+}\hlnum{1}
+        \hlstd{)}
+\hlstd{\}}
+
+
+\hlstd{Boston.print} \hlkwb{<-} \hlkwd{print.team}\hlstd{(Boston,} \hlkwc{print}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\newpage
+\subsection{Question (B)}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{bostonplot} \hlkwb{<-} \hlkwd{c}\hlstd{()}
+\hlstd{plot} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{teamname}\hlstd{)\{}
+  \hlstd{team_name} \hlkwb{<-} \hlkwd{attr}\hlstd{(teamname,}\hlstr{"team"}\hlstd{)}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(teamname[,}\hlnum{6}\hlstd{])) \{}
+    \hlkwa{if}\hlstd{(team[,}\hlnum{6}\hlstd{][i]}\hlopt{==}\hlstr{"1"} \hlopt{&} \hlstd{teamname[,}\hlnum{7}\hlstd{][i]}\hlopt{==}\hlstd{team_name)\{}
+      \hlstd{bostonplot} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"1"}\hlstd{,bostonplot)}
+    \hlstd{\}}
+  \hlstd{\}}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(teamname[,}\hlnum{6}\hlstd{])) \{}
+    \hlkwa{if}\hlstd{(team[,}\hlnum{6}\hlstd{][i]}\hlopt{==}\hlstr{"2"} \hlopt{&} \hlstd{teamname[,}\hlnum{7}\hlstd{][i]}\hlopt{==}\hlstd{team_name)\{}
+      \hlstd{bostonplot} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"2"}\hlstd{,bostonplot)}
+    \hlstd{\}}
+  \hlstd{\}}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(teamname[,}\hlnum{6}\hlstd{])) \{}
+    \hlkwa{if}\hlstd{(team[,}\hlnum{6}\hlstd{][i]}\hlopt{==}\hlstr{"3"} \hlopt{&} \hlstd{teamname[,}\hlnum{7}\hlstd{][i]}\hlopt{==}\hlstd{team_name)\{}
+      \hlstd{bostonplot} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"3"}\hlstd{,bostonplot)}
+    \hlstd{\}}
+  \hlstd{\}}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(teamname[,}\hlnum{6}\hlstd{])) \{}
+    \hlkwa{if}\hlstd{(team[,}\hlnum{6}\hlstd{][i]}\hlopt{==}\hlstr{"OT"} \hlopt{&} \hlstd{teamname[,}\hlnum{7}\hlstd{][i]}\hlopt{==}\hlstd{team_name)\{}
+      \hlstd{bostonplot} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"OT"}\hlstd{,bostonplot)}
+    \hlstd{\}}
+  \hlstd{\}}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(teamname[,}\hlnum{6}\hlstd{])) \{}
+    \hlkwa{if}\hlstd{(team[,}\hlnum{6}\hlstd{][i]}\hlopt{==}\hlstr{"SO"} \hlopt{&} \hlstd{teamname[,}\hlnum{7}\hlstd{][i]}\hlopt{==}\hlstd{team_name)\{}
+      \hlstd{bostonplot} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"SO"}\hlstd{,bostonplot)}
+    \hlstd{\}}
+  \hlstd{\}}
+
+\hlkwd{barplot}\hlstd{(bostonplot,} \hlkwc{main}\hlstd{=}\hlstr{"Goals per periods: BOSTON BRUINS"}\hlstd{, team_name)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+\newpage
+\subsection{Question (C)}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Montreal} \hlkwb{<-} \hlkwd{makeTeam}\hlstd{(res,} \hlstr{"MONTREAL"}\hlstd{)}
+\hlstd{n} \hlkwb{<-} \hlkwd{c}\hlstd{()}
+\hlstd{m} \hlkwb{<-} \hlkwd{c}\hlstd{()}
+\hlstd{compare} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{team1}\hlstd{,} \hlkwc{team2}\hlstd{)\{}
+  \hlstd{team.1} \hlkwb{<-} \hlkwd{attr}\hlstd{(team1,} \hlstr{"team"}\hlstd{)}
+  \hlstd{team.2} \hlkwb{<-} \hlkwd{attr}\hlstd{(team2,} \hlstr{"team"}\hlstd{)}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(team1[,}\hlnum{7}\hlstd{])) \{}
+    \hlkwa{if}\hlstd{(team1[,}\hlnum{7}\hlstd{][i]} \hlopt{==} \hlstd{team.1)\{}
+      \hlstd{n} \hlkwb{<-} \hlkwd{c}\hlstd{(n,} \hlkwd{as.numeric}\hlstd{(}\hlkwd{strtrim}\hlstd{(team1[,}\hlnum{1}\hlstd{][i],}\hlnum{4}\hlstd{)))\}}
+  \hlstd{\}}
+  \hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlkwd{length}\hlstd{(team2[,}\hlnum{7}\hlstd{])) \{}
+    \hlkwa{if}\hlstd{(team2[,}\hlnum{7}\hlstd{][i]} \hlopt{==} \hlstd{team.2)\{}
+      \hlstd{m} \hlkwb{<-} \hlkwd{c}\hlstd{(m,} \hlkwd{as.numeric}\hlstd{(}\hlkwd{strtrim}\hlstd{(team2[,}\hlnum{1}\hlstd{][i],}\hlnum{4}\hlstd{)))\}}
+  \hlstd{\}}
+    \hlkwd{plot}\hlstd{(}\hlkwd{table}\hlstd{(n),} \hlkwc{type} \hlstd{=} \hlstr{"b"}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"blue"}\hlstd{,}
+         \hlkwc{main}\hlstd{=}\hlstr{"Goals Per Season"}\hlstd{,} \hlkwc{xlab}\hlstd{=}\hlstr{"Season"}\hlstd{,} \hlkwc{ylab}\hlstd{=}\hlstr{"Goals"}\hlstd{,}\hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{120}\hlstd{,}\hlnum{280}\hlstd{))}
+    \hlkwd{lines}\hlstd{(}\hlkwd{table}\hlstd{(m),} \hlkwc{type} \hlstd{=} \hlstr{"b"}\hlstd{,} \hlkwc{col} \hlstd{=} \hlstr{"red"}\hlstd{)}
+    \hlkwd{legend}\hlstd{(}\hlstr{"topright"}\hlstd{,} \hlkwd{c}\hlstd{(team.1, team.2),}
+           \hlkwc{lty} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{1}\hlstd{),}
+           \hlkwc{col} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"blue"}\hlstd{,} \hlstr{"red"}\hlstd{))}
+\hlstd{\}}
+\hlkwd{compare}\hlstd{(Boston, Montreal)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+\newpage
+\subsection{Question D}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{numWin} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{team}\hlstd{,} \hlkwc{season}\hlstd{)\{}
+  \hlstd{back} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(}\hlkwd{strtrim}\hlstd{(season,}\hlnum{4}\hlstd{))}\hlopt{+}\hlnum{1}
+  \hlstd{gameid} \hlkwb{<-} \hlkwd{unique}\hlstd{(}\hlkwd{subset}\hlstd{(team[,}\hlstr{"Game_id"}\hlstd{],} \hlkwd{strtrim}\hlstd{(team[,}\hlstr{"Game_id"}\hlstd{],}\hlnum{4}\hlstd{)}\hlopt{==}\hlstd{back))}
+  \hlstd{isWin} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{g}\hlstd{,} \hlkwc{team}\hlstd{)\{}
+    \hlstd{a} \hlkwb{<-} \hlkwd{sum}\hlstd{(team[,} \hlstr{"Goal_Team"}\hlstd{]}\hlopt{==}\hlkwd{attr}\hlstd{(team,}\hlstr{"team"}\hlstd{)}\hlopt{&}\hlstd{team[,}\hlstr{"Game_id"}\hlstd{]}\hlopt{==}\hlstd{g)}
+    \hlstd{b} \hlkwb{<-} \hlkwd{sum}\hlstd{(}\hlopt{!}\hlstd{team[,}\hlstr{"Goal_Team"}\hlstd{]}\hlopt{==}\hlkwd{attr}\hlstd{(team,}\hlstr{"team"}\hlstd{)}\hlopt{&}\hlstd{team[,}\hlstr{"Game_id"}\hlstd{]}\hlopt{==}\hlstd{g)}
+    \hlkwa{if} \hlstd{(a}\hlopt{>}\hlstd{b)\{}
+      \hlkwd{return}\hlstd{(}\hlnum{TRUE}\hlstd{)}
+    \hlstd{\}}
+    \hlkwa{else if} \hlstd{(a}\hlopt{<=}\hlstd{b)\{}
+      \hlkwd{return}\hlstd{(}\hlnum{FALSE}\hlstd{)\}}
+  \hlstd{\}}
+  \hlstd{wins} \hlkwb{<-} \hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,}\hlkwd{length}\hlstd{(gameid))}
+  \hlstd{i} \hlkwb{<-} \hlnum{1}
+  \hlkwa{for} \hlstd{(g} \hlkwa{in} \hlstd{gameid) \{}
+    \hlstd{wins[i]}\hlkwb{=}\hlkwd{isWin}\hlstd{(g,team)}
+    \hlstd{i} \hlkwb{<-} \hlnum{1}\hlopt{+}\hlstd{i}
+  \hlstd{\}}
+  \hlstd{x} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlkwd{sum}\hlstd{(wins),} \hlkwd{length}\hlstd{(gameid))}
+  \hlkwd{names}\hlstd{(x)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"wins"}\hlstd{,} \hlstr{"gamesplayed"}\hlstd{)}
+  \hlstd{x}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\newpage
+\subsection{Question E}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{getAllWins} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{team}\hlstd{)\{}
+  \hlstd{year} \hlkwb{<-} \hlkwd{as.numeric}\hlstd{(}\hlkwd{unique}\hlstd{(}\hlkwd{strtrim}\hlstd{(team[,}\hlstr{"Game_id"}\hlstd{],}\hlnum{4}\hlstd{)))}
+  \hlstd{season} \hlkwb{<-} \hlkwd{paste}\hlstd{(year}\hlopt{-}\hlnum{1}\hlstd{,} \hlstr{"-"}\hlstd{, year,} \hlkwc{sep} \hlstd{=} \hlstr{""}\hlstd{)}
+  \hlstd{x} \hlkwb{<-} \hlkwd{rbind}\hlstd{(}\hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{length}\hlstd{(season)),} \hlkwd{rep}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{length}\hlstd{(season)))}
+  \hlstd{i} \hlkwb{<-} \hlnum{1}
+  \hlkwa{for} \hlstd{(s} \hlkwa{in} \hlstd{season) \{}
+    \hlstd{x[,i]} \hlkwb{<-} \hlkwd{numWin}\hlstd{(team,s)}
+    \hlstd{i} \hlkwb{<-} \hlstd{i}\hlopt{+}\hlnum{1}
+  \hlstd{\}}
+  \hlkwd{rownames}\hlstd{(x)} \hlkwb{<-} \hlkwd{paste}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"wins"}\hlstd{,}\hlstr{"gameplayed"}\hlstd{))}
+  \hlkwd{colnames}\hlstd{(x)} \hlkwb{<-} \hlkwd{paste}\hlstd{(season)}
+  \hlstd{x}
+\hlstd{\}}
+
+\hlstd{atable} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{team1}\hlstd{,} \hlkwc{team2}\hlstd{,} \hlkwc{team3}\hlstd{)\{}
+  \hlkwd{library}\hlstd{(xtable)}
+  \hlstd{matrix} \hlkwb{<-} \hlkwd{cbind}\hlstd{(}\hlkwd{getAllWins}\hlstd{(team1)[}\hlnum{1}\hlstd{,],} \hlkwd{getAllWins}\hlstd{(team2)[}\hlnum{1}\hlstd{,],}
+                  \hlkwd{getAllWins}\hlstd{(team3)[}\hlnum{1}\hlstd{,])}
+  \hlkwd{colnames}\hlstd{(matrix)} \hlkwb{<-} \hlkwd{paste}\hlstd{(}\hlkwd{c}\hlstd{(}\hlkwd{attr}\hlstd{(team1,}\hlstr{"team"}\hlstd{),} \hlkwd{attr}\hlstd{(team2,} \hlstr{"team"}\hlstd{),}
+                              \hlkwd{attr}\hlstd{(team3,}\hlstr{"team"}\hlstd{)))}
+  \hlkwd{xtable}\hlstd{(matrix,} \hlkwc{digits}\hlstd{=}\hlnum{0}\hlstd{)}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Pittsburgh} \hlkwb{<-} \hlkwd{makeTeam}\hlstd{(res,} \hlstr{"PITTSBURGH"}\hlstd{)}
+\hlkwd{atable}\hlstd{(Montreal, Boston, Pittsburgh)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\newpage
+\subsection{Question F}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{summary} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{team}\hlstd{)\{}
+  \hlkwd{print.team}\hlstd{(team)}
+  \hlstd{ratio} \hlkwb{<-} \hlkwd{getAllWins}\hlstd{(team)[}\hlnum{1}\hlstd{,]}\hlopt{/}\hlkwd{getAllWins}\hlstd{(team)[}\hlnum{2}\hlstd{,]}
+  \hlstd{b} \hlkwb{<-} \hlkwd{as.matrix}\hlstd{(ratio)}
+  \hlkwd{rownames}\hlstd{(b)} \hlkwb{<-} \hlkwd{paste}\hlstd{(}\hlkwd{colnames}\hlstd{(}\hlkwd{getAllWins}\hlstd{(team)))}
+  \hlstd{season.min} \hlkwb{<-} \hlkwd{rownames}\hlstd{(}\hlkwd{unique}\hlstd{(}\hlkwd{subset}\hlstd{(b,b[,}\hlnum{1}\hlstd{]}\hlopt{==}\hlkwd{min}\hlstd{(b[,}\hlnum{1}\hlstd{]))))}
+  \hlstd{season.max} \hlkwb{<-} \hlkwd{rownames}\hlstd{(}\hlkwd{unique}\hlstd{(}\hlkwd{subset}\hlstd{(b,b[,}\hlnum{1}\hlstd{]}\hlopt{==}\hlkwd{max}\hlstd{(b[,}\hlnum{1}\hlstd{]))))}
+  \hlstd{min} \hlkwb{<-} \hlkwd{min}\hlstd{(ratio)}
+  \hlstd{max} \hlkwb{<-} \hlkwd{max}\hlstd{(ratio)}
+  \hlkwd{options}\hlstd{(}\hlkwc{digits}\hlstd{=}\hlnum{2}\hlstd{)}
+  \hlkwd{cat}\hlstd{(}\hlstr{"The Best Season is "}\hlstd{, season.max,} \hlstr{"with a ratio wins to games played of"}\hlstd{,}
+      \hlstd{max,}\hlstr{"\textbackslash{}n"}\hlstd{)}
+  \hlkwd{cat}\hlstd{(}\hlstr{"The Workst Season is "}\hlstd{, season.min,} \hlstr{"with a ratio wins to games played of"}\hlstd{,}
+      \hlstd{min,}\hlstr{"\textbackslash{}n"}\hlstd{)}
+\hlstd{\}}
+\hlkwd{summary}\hlstd{(Montreal)}
+\hlkwd{summary}\hlstd{(Boston)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\end{document}
+
